@@ -1,0 +1,15 @@
+FROM --platform=x86_64 archlinux:latest
+
+RUN pacman -Syyuu --noconfirm && pacman -S base-devel make --noconfirm
+
+RUN useradd -m dev
+
+WORKDIR /home/dev
+
+USER dev
+
+COPY . .
+
+RUN make
+
+CMD [ "bash" ]
