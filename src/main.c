@@ -1,9 +1,5 @@
 #include <stdio.h>
 #include <argp.h>
-#include <getopt.h>
-
-const char *argp_program_version      = "Smart File Organizer v0.1";
-const char *argp_program_error_report = "Open a issue in https://github.com/Shadabdullah/SmartFileOrganizer";
 
 struct argp_option argument_options[] = {
   /*
