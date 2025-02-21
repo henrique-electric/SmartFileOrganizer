@@ -13,3 +13,28 @@ static bool check_is_valid(const struct file *file) {
 
     return true; // the file has a valid type
 }
+
+/*
+    Function to handle the organize process
+*/
+int8_t organize(const char *path) {
+    if (path == NULL || check_is_a_dir(path) == false) // Check if the path points do a directory
+        return ERROR_ON_ORGANIZE_DIR;   
+
+
+    struct dirent *file_on_dir;         // struct to store the curret file on the dir 
+    DIR *dir_pointer = opendir(path);   // pointer to the current directory
+
+    if (dir_pointer == NULL)
+        return ERROR_ON_ORGANIZE_DIR;
+
+    while ((file_on_dir = readdir(&dir_pointer)) != NULL) {
+        if (check_is_a_dir(path) == true) {
+            continue; // the file is a directory, jump to the next file
+        } else {
+             
+        }
+    }
+
+    return 0;
+}
