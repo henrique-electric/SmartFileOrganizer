@@ -3,7 +3,7 @@
 /*
     A simple functions to check if the file is a directory
 */
-static bool check_is_valid(const struct file *file) {
+static bool check_is_a_dir(const struct file *file) {
     if (file == NULL)
         return false;
 
