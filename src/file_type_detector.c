@@ -86,7 +86,7 @@ int get_file_type(const char *file_path, file_info *f_info)
 
     strncpy(f_info->mime_type, mime_type, strlen(mime_type));
     f_info->mime_type[strlen(mime_type) + 1] = '\0';
-
+    strcpy(f_info->short_type, strtok(f_info, '/'));
     f_info->success_analyse = true;
     magic_close(magic_cookie);
 
