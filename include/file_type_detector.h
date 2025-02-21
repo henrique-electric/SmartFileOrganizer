@@ -12,6 +12,7 @@ typedef struct file
 {
     size_t file_size;
     char mime_type[MAXIMUM_LENGTH]; 
+    char short_type[MAXIMUM_LENGTH];
     bool success_analyse;
 } file_info;
 
