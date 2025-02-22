@@ -6,6 +6,8 @@
 // Defines from organize module
 #define ERROR_ON_ORGANIZE_DIR   -1
 #define SUCCESS_ON_ORGANIZE_DIR  0
+#define ERROR_ON_HANDLE_TYPE    -1
+#define SUCCESS_ON_HANDLE_TYPE   0
 
 // Defines from ocli module
 #define  USER_COMMAND_READ_ERROR  -1
