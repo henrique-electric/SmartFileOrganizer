@@ -84,9 +84,18 @@ int get_file_type(const char *file_path, file_info *f_info)
         return FAILED_GET_MIME_TYPE;
     }
 
-    strncpy(f_info->mime_type, mime_type, strlen(mime_type));
-    f_info->mime_type[strlen(mime_type) + 1] = '\0';
-    strcpy(f_info->short_type, strtok(f_info, '/'));
+    char *type_token = strtok(mime_type, '/'); // Get the type of the file which is the first token
+
+    // Copy the token referring to the type
+    strncpy(f_info->file_type, mime_type, strlen(type_token));
+    f_info->file_type[strlen(type_token) + 1] = '\0';
+
+    type_token = strtok(NULL, '/');
+
+    // Copy the token referring to the format
+    strcpy(f_info->file_format, strtok(f_info, '/'));
+    f_info->file_format[strlen(type_token) + 1] = '\0';
+
     f_info->success_analyse = true;
     magic_close(magic_cookie);
 
