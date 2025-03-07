@@ -18,6 +18,6 @@
 const char *image_types[] =  {"png", "jpeg", "gif", "bmp", "tiff", "webp", "x-icon"};
 
 
-int8_t organize(const char *path);
+int organize(const file_info *f_info);
 
 #endif
