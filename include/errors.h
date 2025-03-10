@@ -21,6 +21,11 @@
 #define MSG_FAIL_CREATE_DIRECTORY "Failed to create a new directory"
 #define MSG_FAIL_CREATE_SYMBOLIC_LINK "Failed to create symbolic link"
 
+#define MSG_FAIL_CREATE_ARCHIVE_STRUCT "Failed to create archive struct for the specified file"
+#define MSG_FAIL_SUPPORT_ARCHIVE_FILTERS "Failed to support archive filters for the specified file"
+#define MSG_SUPPORT_ARCHIVE_FORMATS "Failed to support archive formats for the specified file"
+#define MSG_FAIL_OPEN_ARCHIVE_FILE "Failed to open the specified archive file"
+
 /**
  * Error codes
  */
@@ -41,3 +46,8 @@
 #define FAIL_NO_COPY 3002
 #define FAIL_CREATE_NEW_DIRECTORY 3003
 #define FAIL_CREATE_SYMBOLIC_LINK 3004 
+
+#define FAIL_CREATE_ARCHIVE_STRUCT 5001
+#define FAIL_SUPPORT_ARCHIVE_FILTERS 5002
+#define FAIL_SUPPORT_ARCHIVE_FORMATS 5003
+#define FAIL_OPEN_ARCHIVE_FILE 5004
