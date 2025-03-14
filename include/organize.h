@@ -15,8 +15,6 @@
 
 #define IMAGE_TYPE_ARRAY_LEN 7
 
-const char *image_types[] =  {"png", "jpeg", "gif", "bmp", "tiff", "webp", "x-icon"};
-
 
 int organize(const file_info *f_info);
 
