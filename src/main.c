@@ -4,6 +4,8 @@
 #include "../include/organize.h"
 
 file_info output;
+char program_path[256]; // where the user called the program
+char *file_path = NULL; // this variable is used to concat where the program was called with the argv[1] (the File)
 
 int main(int argc, char *argv[])
 {
@@ -11,12 +13,17 @@ int main(int argc, char *argv[])
 
   if (argc > 1)
   {
-    printf("argv[1]: %s\n", argv[1]);
-    const char *path = argv[1];
+    getcwd(program_path, sizeof(program_path));
+    file_path = strcat(program_path, "/");
+    file_path = strcat(file_path, argv[1]);
+    file_path = strcat(file_path, "/");
+    
+    printf("%s\n\n", file_path);
 
-    int result = get_file_type(path, &output);
-    get_file_size(path, &output);
-    get_file_extension(path, &output);
+    /*
+    int result = get_file_type(file_path, &output);
+    get_file_size(file_path, &output);
+    get_file_extension(file_path, &output);
     
     if (result == 0)
     {
@@ -27,9 +34,12 @@ int main(int argc, char *argv[])
       printf("File extension: %s\n", output.extension);
     }
     //Getting more info about the files and categorizing them ( to do )
-    type_categories(path, &output);
+    type_categories(file_path, &output);
+
+    */
+
     //Test organizing function
-    int organize_output = organize(&output);
+    int organize_output = organize(file_path);
     printf("organize returned: %d\n", organize_output);
 
   }

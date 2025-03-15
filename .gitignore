@@ -3,3 +3,5 @@ sfo
 *.o
 dev.nix
 .devcontainer.json
+build
+build.sh

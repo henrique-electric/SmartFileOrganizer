@@ -2,23 +2,24 @@
 
 const char *image_types[] = {"png", "jpeg", "jpg", "gif", "bmp", "tiff", "webp", "x-icon"};
 
+char *user_home = NULL;
+char *file_name = NULL;
 char sfo_home[1024];
 char links_path[1024];
-
 bool is_image = false;
 
 #define SUCCESS_CREATED_IMAGE_LINKS 0
 
-// Current working directory
-char current_directory[1024];
+// Current working director
 
 static int handle_images(const file_info *file_info)
 {
     if (file_info == NULL)
         return -1;
 
-    if (symlink(sfo_home, "link_image") == -1)
+    if (symlink(file_info->path, "link_image") == -1)
     {
+        printf("%s\n", file_info->path);
         fprintf(stderr, "Error: %s\n", MSG_FAIL_CREATE_SYMBOLIC_LINK);
         return FAIL_CREATE_SYMBOLIC_LINK;
     }
@@ -42,7 +43,6 @@ static int handle_types(const file_info *file_info)
 
     if (is_image)
     {
-        strcat(sfo_home, "/images/"); 
         if (!mkdir(sfo_home, 0755)) // create a directory for images
         {
             fprintf(stderr, "Error: %s\n", MSG_FAIL_CREATE_DIRECTORY);
@@ -58,28 +58,27 @@ static int handle_types(const file_info *file_info)
 /*
     Function to handle the organize process
 */
-int organize(const file_info *f_info)
+int organize(char *path)
 {
 
-    if (!getcwd(current_directory, sizeof(current_directory)))
-    {
-        fprintf(stderr, "Error: %s or %s\n", MSG_FAIL_NO_CWD, MSG_FAIL_NO_SPACE);
-        return FAIL_NO_CWD;
-    }
+    struct dirent *file_on_dir = NULL;
+    file_info file_info = { 0 };
 
-    strncpy(sfo_home, current_directory, sizeof(sfo_home));
-    sfo_home[strlen(current_directory) + 1] = '\0';
+    DIR *directory = opendir(path);
 
-    if (!sfo_home)
+    while ((file_on_dir = readdir(directory)) != NULL)
     {
-        fprintf(stderr, "Error: %s\n", MSG_FAIL_COPY_CWD);
-        return FAIL_NO_COPY;
-    }
+       if (file_on_dir->d_type == 8) {
+            get_file_type(strcat(path, file_on_dir->d_name), &file_info);
+            get_file_extension(strcat(path, file_on_dir->d_name), &file_info);
+            //get_file_size(strcat(path, file_on_dir->d_name), &file_info);
 
-    if (f_info->success_analyse)
-    {
-        handle_types(f_info);
+            printf("%s\n", file_info.extension);
+            handle_types(&file_info);
+       }
     }
+    
+    closedir(directory);
 
     return 0;
 }

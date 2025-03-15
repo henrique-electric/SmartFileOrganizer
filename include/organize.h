@@ -16,6 +16,6 @@
 #define IMAGE_TYPE_ARRAY_LEN 7
 
 
-int organize(const file_info *f_info);
+int organize(char *path);
 
 #endif
