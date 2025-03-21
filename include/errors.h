@@ -26,6 +26,8 @@
 #define MSG_SUPPORT_ARCHIVE_FORMATS "Failed to support archive formats for the specified file"
 #define MSG_FAIL_OPEN_ARCHIVE_FILE "Failed to open the specified archive file"
 
+#define MSG_FAIL_MEMORY_ALLOC "Memory allocation failed"
+
 /**
  * Error codes
  */
