@@ -13,12 +13,13 @@ int main(int argc, char *argv[])
 
   if (argc > 1)
   {
+    char *home = getenv("HOME");
     getcwd(program_path, sizeof(program_path));
     file_path = strcat(program_path, "/");
+    file_path = strcat(home, "/");
     file_path = strcat(file_path, argv[1]);
     file_path = strcat(file_path, "/");
     
-    printf("%s\n\n", file_path);
 
     /*
     int result = get_file_type(file_path, &output);
@@ -37,10 +38,9 @@ int main(int argc, char *argv[])
     type_categories(file_path, &output);
 
     */
-
     //Test organizing function
     int organize_output = organize(file_path);
-    printf("organize returned: %d\n", organize_output);
+    //printf("organize returned: %d\n", organize_output);
 
   }
 
