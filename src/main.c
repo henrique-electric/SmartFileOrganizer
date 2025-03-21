@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "../include/file_type_detector.h"
-#include "../include/archive_files/get_sound_file_info.h"
+#include "../include/sound_files/get_sound_file_info.h"
 #include "../include/organize.h"
 
 file_info output;
