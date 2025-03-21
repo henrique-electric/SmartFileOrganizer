@@ -5,3 +5,7 @@ dev.nix
 .devcontainer.json
 build
 build.sh
+cmake_install.cmake
+CMakeFiles
+CMakeCache.txt
+run.sh
