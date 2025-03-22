@@ -4,17 +4,17 @@ const char *image_types[] = {"PNG", "JPEG", "JPG", "GIF", "BMP", "TIFF", "WEBP",
 
 char *user_home = NULL;
 char *sfo_home  = NULL;
-char links_path[1024];
 bool is_image = false;
 
 #define SUCCESS_CREATED_IMAGE_LINKS 0
 
-// Current working director
 
 static int handle_images(const file_info *file_info)
 {
     if (file_info == NULL)
         return -1;
+
+    
 
     if (symlink(file_info->path, "link_image") == -1)
     {
@@ -52,7 +52,6 @@ static int handle_types(const file_info *file_info)
         }
 
         //TO DO ( maybe copying the original image files into newly created folder (images))
-
         handle_images(file_info);
     }
 }
@@ -74,11 +73,12 @@ int organize(char *path)
     {
         // Check if the file is not a directory
         if (strcmp(file_on_dir->d_name, ".") == 0 || strcmp(file_on_dir->d_name, "..") == 0) { 
-
             continue;
         } else {
-            get_file_type(strcat(path, file_on_dir->d_name), &file_info);
-            handle_types(&file_info);
+
+            get_file_type(strcat(path, file_on_dir->d_name), &file_info); // analyse the current file
+            //handle_types(&file_info);
+            
         }
 
         

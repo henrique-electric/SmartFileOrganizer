@@ -18,6 +18,7 @@ typedef struct
     char type[MAX_TYPE_SIZE];
     char extension[MAX_EXTENSION_SIZE];
     char path[MAX_FILE_NAME_LEN];
+    char file_name[MAX_FILE_NAME_LEN];
     bool success_analyse;
 } file_info;
 
