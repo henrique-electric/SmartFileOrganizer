@@ -3,8 +3,13 @@
 // Static function declare
 static int8_t format_null(struct program_state *program_struct);
 
+static program_state_t main_program_state;
+
 void handle_organize(struct program_state *program_struct) {
-    // TODO: Implement organize command
+    static char path_buffer[256];
+    fgets(path_buffer, 256, stdin); // get the path to organize
+
+    organize(path_buffer);
 }
 
 void handle_backup(struct program_state *program_struct) {
@@ -54,9 +59,21 @@ int read_input(struct program_state *program_struct) {
     return USER_COMMAND_READ_ERROR; // Command not found
 }
 
+void terminal() {
+    puts("Smart File Organizer CLI");
+    puts("[ 1 ] Organize");
+    puts("[ 2 ] Backup");
+    puts("[ 3 ] exit");
+    printf("Enter an option: ");
+
+    while ((read_input(&main_program_state)) == USER_COMMAND_READ_ERROR)
+        printf("Ivalid command, try again: ");
+    
+} 
+
 /*
-    A function to dedicate to format the input to change from a \n at the end to \0
-*/
+     A function to dedicate to format the input to change from a \n at the end to \0
+ */
 static int8_t format_null(struct program_state *program_struct) {
     if (NULL == program_struct)
         return -1;
@@ -68,3 +85,4 @@ static int8_t format_null(struct program_state *program_struct) {
     *char_index = 0x00; // set the addr to 0x00
     return 0;
 }
+
