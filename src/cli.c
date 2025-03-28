@@ -6,8 +6,11 @@ static int8_t format_null(struct program_state *program_struct);
 static program_state_t main_program_state;
 
 void handle_organize(struct program_state *program_struct) {
-    static char path_buffer[256];
+    char path_buffer[256];
+
+    printf("Enter the path to organize: ");
     fgets(path_buffer, 256, stdin); // get the path to organize
+    path_buffer[strlen(path_buffer) - 1] = 0x00;
 
     organize(path_buffer);
 }
