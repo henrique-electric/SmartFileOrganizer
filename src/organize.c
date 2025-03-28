@@ -9,7 +9,7 @@ char link_dst[LINK_MAX_LEN];
 bool is_image = false;
 
 
-#define SUCCESS_CREATED_IMAGE_LINKS 0
+#define SUCCESS_CREATED_LINKS 0
 
 static void handle_link_path(const char *type, const char *name) {
     if (type == NULL)
@@ -19,9 +19,12 @@ static void handle_link_path(const char *type, const char *name) {
     strncpy(link_dst, user_home, LINK_MAX_LEN); 
 
     strcat(link_dst, "/");
-    strcat(link_dst, "./sfo/");
+    strcat(link_dst, ".sfo/");
     strcat(link_dst, type); // concat the type
     strcat(link_dst, "/");  // add a / after the type
+
+    mkdir(link_dst, 0777);
+
     strcat(link_dst, name); // add the file name at the end of the path
 }
 
@@ -36,7 +39,8 @@ static int handle_types(const file_info *file_info)
         fprintf(stderr, MSG_FAIL_CREATE_SYMBOLIC_LINK);
         return FAIL_CREATE_SYMBOLIC_LINK;
     }
-
+    printf("Symlink created at %s\n", link_dst);
+    return SUCCESS_CREATED_LINKS;
 }
 
 /*
