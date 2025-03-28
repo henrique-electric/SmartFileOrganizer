@@ -1,29 +1,28 @@
 #include "../include/organize.h"
+#define LINK_MAX_LEN 256
 
 const char *image_types[] = {"PNG", "JPEG", "JPG", "GIF", "BMP", "TIFF", "WEBP", "X-ICON"};
 
-char *user_home = NULL;
-char *sfo_home  = NULL;
+char *user_home     = NULL;
+char *sfo_home      = NULL;
+char link_dst[LINK_MAX_LEN];
 bool is_image = false;
+
 
 #define SUCCESS_CREATED_IMAGE_LINKS 0
 
+static void handle_link_path(const char *type, const char *name) {
+    if (type == NULL)
+        return;
 
-static int handle_images(const file_info *file_info)
-{
-    if (file_info == NULL)
-        return -1;
+    user_home = getenv("HOME");
+    strncpy(link_dst, user_home, LINK_MAX_LEN); 
 
-    
-
-    if (symlink(file_info->path, "link_image") == -1)
-    {
-        //printf("%s\n", file_info->path);
-        fprintf(stderr, "Error: %s\n", MSG_FAIL_CREATE_SYMBOLIC_LINK);
-        return FAIL_CREATE_SYMBOLIC_LINK;
-    }
-
-        return 0;
+    strcat(link_dst, "/");
+    strcat(link_dst, "./sfo/");
+    strcat(link_dst, type); // concat the type
+    strcat(link_dst, "/");  // add a / after the type
+    strcat(link_dst, name); // add the file name at the end of the path
 }
 
 static int handle_types(const file_info *file_info)
@@ -31,29 +30,13 @@ static int handle_types(const file_info *file_info)
     if (file_info == NULL)
         return FAIL_HANDLE_TYPE;
 
-    user_home = getenv("HOME");
-    sfo_home = strcat(user_home, "/.sfo/");
-
-    for (int i = 0; i < IMAGE_TYPE_ARRAY_LEN; i++)
-    {
-        if (strcmp(file_info->type, image_types[i]) == 0)
-        {
-            is_image = true;
-            break;
-        }
+    handle_link_path(file_info->type, file_info->file_name);
+    if(symlink(file_info->path, link_dst) == -1) {
+    
+        fprintf(stderr, MSG_FAIL_CREATE_SYMBOLIC_LINK);
+        return FAIL_CREATE_SYMBOLIC_LINK;
     }
 
-    if (is_image)
-    {
-        if (!mkdir(sfo_home, 0755)) // create a directory for images
-        {
-            fprintf(stderr, "Error: %s\n", MSG_FAIL_CREATE_DIRECTORY);
-            return FAIL_CREATE_NEW_DIRECTORY;
-        }
-
-        //TO DO ( maybe copying the original image files into newly created folder (images))
-        handle_images(file_info);
-    }
 }
 
 /*
@@ -75,14 +58,11 @@ int organize(char *path)
         if (strcmp(file_on_dir->d_name, ".") == 0 || strcmp(file_on_dir->d_name, "..") == 0) { 
             continue;
         } else {
-
+            strncpy(file_info.file_name, file_on_dir->d_name, MAX_FILE_NAME_LEN); // copy the current file name to the buffer
             get_file_type(strcat(path, file_on_dir->d_name), &file_info); // analyse the current file
-            //handle_types(&file_info);
+            handle_types(&file_info);
             
         }
-
-        
-       
     }
     
     closedir(directory);
