@@ -1,4 +1,4 @@
-#define abort(MSG) (fprintf(stderr, MSG))
+#define sfo_abort(MSG) (fprintf(stderr,MSG))
 
 /**
  * Error messages
