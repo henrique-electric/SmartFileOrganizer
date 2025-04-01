@@ -1,13 +1,19 @@
 #ifndef SFO_CLI_H
 #define SFO_CLI_H
+
+// Standard includes
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+//
 
+// Module includes
 #include "organize.h"
+#include "backup.h"
 
+// Defines
 #define  CMD_BACKUP "backup"
 #define  CMD_EXIT "exit"
 #define  CMD_ORGANIZE "organize"
@@ -17,11 +23,15 @@
 #define  USER_COMMAND_READ_SUCCESS 0
 
 #define  USR_BUFF_CAP  35 // Just a start value, can be changed as needed
+#define  USR_PATH_LEN  256
+//
+
 
 // Using a struct to group variables and make easier to work
 struct program_state {
-    bool    is_running;                 //stores the current state of the program
-    char    input_buff[USR_BUFF_CAP];   //holds the user input
+    bool    is_running;                 // stores the current state of the program
+    char    input_buff[USR_BUFF_CAP];   // holds the user input
+    char    path_buff[USR_PATH_LEN];    // Holds the path that the user want to use the program
 };
 typedef struct program_state program_state_t;
 

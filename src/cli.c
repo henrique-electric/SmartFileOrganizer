@@ -2,21 +2,24 @@
 
 // Static function declare
 static int8_t format_null(struct program_state *program_struct);
-
 static program_state_t main_program_state;
 
+char *sfo_home    = NULL;
+
 void handle_organize(struct program_state *program_struct) {
-    char path_buffer[256];
-
     printf("Enter the path to organize: ");
-    fgets(path_buffer, 256, stdin); // get the path to organize
-    path_buffer[strlen(path_buffer) - 1] = 0x00;
+    fgets(program_struct->path_buff, USR_PATH_LEN, stdin); // get the path to organize
+    program_struct->path_buff[strlen(program_struct->path_buff) - 1] = 0x00; // removes the \n from the user input (I hate this character XD)
 
-    organize(path_buffer);
+    organize(program_struct->path_buff); // call the organize module
 }
 
 void handle_backup(struct program_state *program_struct) {
-    // TODO: Implement backup command
+    printf("Enter the path to backup: ");
+    fgets(program_struct->path_buff, USR_PATH_LEN, stdin);
+    program_struct->path_buff[strlen(program_struct->path_buff) - 1]; // Removing th e\n from the user input (AGAIN!!!)
+
+    backup(program_struct->path_buff);
 }
 
 void handle_status(struct program_state *program_struct) {

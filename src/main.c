@@ -3,6 +3,7 @@
 #include "../include/file_type_detector.h"
 #include "../include/organize.h"
 #include "../include/cli.h"
+#include "../include/utils.h"
 
 file_info output;
 char program_path[256]; // where the user called the program
@@ -21,7 +22,8 @@ int main(int argc, char *argv[])
     strcat(program_path, "/");
     
   } else {
-    terminal();
+    printf("%s\n", get_sfo_home());
+    //terminal();
   }
 
   return 0;

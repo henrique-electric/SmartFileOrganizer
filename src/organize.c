@@ -6,7 +6,6 @@ const char *image_types[] = {"PNG", "JPEG", "JPG", "GIF", "BMP", "TIFF", "WEBP",
 char *user_home     = NULL;
 char *sfo_home      = NULL;
 char link_dst[LINK_MAX_LEN];
-bool is_image = false;
 
 
 #define SUCCESS_CREATED_LINKS 0
