@@ -54,6 +54,7 @@ int organize(char *path)
     DIR *directory = NULL;
     if ((directory = opendir(path)) == NULL) {
         fprintf(stderr, "ERROR on open path (%d)\n", errno);
+        return FAIL_OPEN_DIRECTORY;
     }
 
     while ((file_on_dir = readdir(directory)) != NULL)

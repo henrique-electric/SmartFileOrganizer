@@ -6,6 +6,7 @@ static int8_t format_null(struct program_state *program_struct);
 static program_state_t main_program_state;
 
 void handle_organize(struct program_state *program_struct) {
+    //To Do ( More checks and tests)
     char path_buffer[256];
 
     printf("Enter the path to organize: ");
@@ -44,8 +45,10 @@ const command_dispatch_table_t command_dispatch_table[] = {
     Function to handle user input
 */
 int read_input(struct program_state *program_struct) {
+    //To Do
     if (NULL == program_struct)
         return USER_COMMAND_READ_ERROR;
+
 
     fgets(program_struct->input_buff, USR_BUFF_CAP, stdin); // Get the input
     if (format_null(program_struct) != 0)
