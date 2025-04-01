@@ -1,29 +1,31 @@
 #include "../include/organize.h"
+#define LINK_MAX_LEN 256
 
-const char *image_types[] = {"png", "jpeg", "jpg", "gif", "bmp", "tiff", "webp", "x-icon"};
+const char *image_types[] = {"PNG", "JPEG", "JPG", "GIF", "BMP", "TIFF", "WEBP", "X-ICON"};
 
-char sfo_home[1024];
-char links_path[1024];
-
+char *user_home     = NULL;
+char *sfo_home      = NULL;
+char link_dst[LINK_MAX_LEN];
 bool is_image = false;
 
-#define SUCCESS_CREATED_IMAGE_LINKS 0
 
-// Current working directory
-char current_directory[1024];
+#define SUCCESS_CREATED_LINKS 0
 
-static int handle_images(const file_info *file_info)
-{
-    if (file_info == NULL)
-        return -1;
+static void handle_link_path(const char *type, const char *name) {
+    if (type == NULL)
+        return;
 
-    if (symlink(sfo_home, "link_image") == -1)
-    {
-        fprintf(stderr, "Error: %s\n", MSG_FAIL_CREATE_SYMBOLIC_LINK);
-        return FAIL_CREATE_SYMBOLIC_LINK;
-    }
+    user_home = getenv("HOME");
+    strncpy(link_dst, user_home, LINK_MAX_LEN); 
 
-        return 0;
+    strcat(link_dst, "/");
+    strcat(link_dst, ".sfo/");
+    strcat(link_dst, type); // concat the type
+    strcat(link_dst, "/");  // add a / after the type
+
+    mkdir(link_dst, 0777);
+
+    strcat(link_dst, name); // add the file name at the end of the path
 }
 
 static int handle_types(const file_info *file_info)
@@ -31,55 +33,43 @@ static int handle_types(const file_info *file_info)
     if (file_info == NULL)
         return FAIL_HANDLE_TYPE;
 
-    for (int i = 0; i < IMAGE_TYPE_ARRAY_LEN; i++)
-    {
-        if (strcmp(file_info->extension, image_types[i]) == 0)
-        {
-            is_image = true;
-            break;
-        }
+    handle_link_path(file_info->type, file_info->file_name);
+    if(symlink(file_info->path, link_dst) == -1) {
+    
+        fprintf(stderr, MSG_FAIL_CREATE_SYMBOLIC_LINK);
+        return FAIL_CREATE_SYMBOLIC_LINK;
     }
-
-    if (is_image)
-    {
-        strcat(sfo_home, "/images/"); 
-        if (!mkdir(sfo_home, 0755)) // create a directory for images
-        {
-            fprintf(stderr, "Error: %s\n", MSG_FAIL_CREATE_DIRECTORY);
-            return FAIL_CREATE_NEW_DIRECTORY;
-        }
-
-        //TO DO ( maybe copying the original image files into newly created folder (images))
-
-        handle_images(file_info);
-    }
+    printf("Symlink created at %s\n", link_dst);
+    return SUCCESS_CREATED_LINKS;
 }
 
 /*
     Function to handle the organize process
 */
-int organize(const file_info *f_info)
+int organize(char *path)
 {
+    struct dirent *file_on_dir = NULL;
+    file_info file_info = { 0 };
 
-    if (!getcwd(current_directory, sizeof(current_directory)))
-    {
-        fprintf(stderr, "Error: %s or %s\n", MSG_FAIL_NO_CWD, MSG_FAIL_NO_SPACE);
-        return FAIL_NO_CWD;
+    DIR *directory = NULL;
+    if ((directory = opendir(path)) == NULL) {
+        fprintf(stderr, "ERROR on open path (%d)\n", errno);
     }
 
-    strncpy(sfo_home, current_directory, sizeof(sfo_home));
-    sfo_home[strlen(current_directory) + 1] = '\0';
-
-    if (!sfo_home)
+    while ((file_on_dir = readdir(directory)) != NULL)
     {
-        fprintf(stderr, "Error: %s\n", MSG_FAIL_COPY_CWD);
-        return FAIL_NO_COPY;
+        // Check if the file is not a directory
+        if (strcmp(file_on_dir->d_name, ".") == 0 || strcmp(file_on_dir->d_name, "..") == 0) { 
+            continue;
+        } else {
+            strncpy(file_info.file_name, file_on_dir->d_name, MAX_FILE_NAME_LEN); // copy the current file name to the buffer
+            get_file_type(strcat(path, file_on_dir->d_name), &file_info); // analyse the current file
+            handle_types(&file_info);
+            
+        }
     }
-
-    if (f_info->success_analyse)
-    {
-        handle_types(f_info);
-    }
+    
+    closedir(directory);
 
     return 0;
 }

@@ -1,3 +1,5 @@
+#define sfo_abort(MSG) (fprintf(stderr,MSG))
+
 /**
  * Error messages
  */
@@ -20,6 +22,8 @@
 
 #define MSG_FAIL_CREATE_DIRECTORY "Failed to create a new directory"
 #define MSG_FAIL_CREATE_SYMBOLIC_LINK "Failed to create symbolic link"
+
+#define MSG_FAIL_CREATE_BACKUP "Failed to backup the files in the directory"
 
 #define MSG_FAIL_CREATE_ARCHIVE_STRUCT "Failed to create archive struct for the specified file"
 #define MSG_FAIL_SUPPORT_ARCHIVE_FILTERS "Failed to support archive filters for the specified file"

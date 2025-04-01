@@ -3,21 +3,28 @@
 #include "../include/file_type_detector.h"
 #include "../include/sound_files/get_sound_file_info.h"
 #include "../include/organize.h"
+#include "../include/cli.h"
 
 file_info output;
+char program_path[256]; // where the user called the program
+char *file_path = NULL; // this variable is used to concat where the program was called with the argv[1] (the File)
 
 int main(int argc, char *argv[])
 {
-  printf("Smart File Manager CLI");
 
   if (argc > 1)
   {
-    printf("argv[1]: %s\n", argv[1]);
-    const char *path = argv[1];
-
-    int result = get_file_type(path, &output);
-    get_file_size(path, &output);
-    get_file_extension(path, &output);
+    
+    char *home = getenv("HOME");
+    getcwd(program_path, sizeof(program_path));
+    strcat(program_path, "/");
+    strcat(home, "/");
+    strcat(program_path, argv[1]);
+    strcat(program_path, "/");
+    
+  } else {
+    
+    terminal();
     
     if (result == 0)
     {
@@ -36,11 +43,9 @@ int main(int argc, char *argv[])
     //Getting more info about the files and categorizing them ( to do )
     type_categories(path, &output);
 
-
     //Test organizing function
     int organize_output = organize(&output);
     printf("organize returned: %d\n", organize_output);
-
   }
 
   return 0;

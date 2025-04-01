@@ -132,8 +132,9 @@ int get_file_type(const char *file_path, file_info *f_info)
             if (output)
             {
                 // Copying type
-                strncpy(f_info->type, type_buff, strlen(type_buff));
-                f_info->type[strlen(type_buff) + 1] = '\0';
+                const char *short_type = strtok(type_buff, " ");  // get the type
+                strncpy(f_info->type, short_type, sizeof(f_info->type)); // copy the type to the buffer
+                f_info->type[strlen(type_buff) + 1] = '\0'; // add a null character
             }
 
             strncpy(f_info->path, file_path, MAX_FILE_NAME_LEN); // Copy the full path to the file
