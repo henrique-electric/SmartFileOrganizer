@@ -11,12 +11,16 @@ static int8_t copy_file(const char *file, const char *path) {
     
     size_t file_size; // store the file size. Will be used when reading the file
 
-    FILE *src_file = fopen(file, "r");
-    FILE *dst_file = fopen()
-    if (file == NULL)
-        return -1;
+    FILE *src_file = fopen(file, "r"); 
 
-    
+    //To Do
+    if(src_file != NULL)
+    {
+
+    }
+
+
+    fclose(src_file);
 
 }
 
