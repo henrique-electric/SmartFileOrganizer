@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
     strcat(program_path, "/");
     
   } else {
-    printf("%s\n", get_sfo_home());
-    //terminal();
+    //printf("%s\n", get_sfo_home());
+    backup("/home/vscode/Pictures/");
   }
 
   return 0;

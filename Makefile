@@ -129,6 +129,30 @@ sfo/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sfo.dir/build.make CMakeFiles/sfo.dir/build
 .PHONY : sfo/fast
 
+src/backup.o: src/backup.c.o
+.PHONY : src/backup.o
+
+# target to build an object file
+src/backup.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sfo.dir/build.make CMakeFiles/sfo.dir/src/backup.c.o
+.PHONY : src/backup.c.o
+
+src/backup.i: src/backup.c.i
+.PHONY : src/backup.i
+
+# target to preprocess a source file
+src/backup.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sfo.dir/build.make CMakeFiles/sfo.dir/src/backup.c.i
+.PHONY : src/backup.c.i
+
+src/backup.s: src/backup.c.s
+.PHONY : src/backup.s
+
+# target to generate assembly for a file
+src/backup.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sfo.dir/build.make CMakeFiles/sfo.dir/src/backup.c.s
+.PHONY : src/backup.c.s
+
 src/cli.o: src/cli.c.o
 .PHONY : src/cli.o
 
@@ -282,6 +306,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... sfo"
+	@echo "... src/backup.o"
+	@echo "... src/backup.i"
+	@echo "... src/backup.s"
 	@echo "... src/cli.o"
 	@echo "... src/cli.i"
 	@echo "... src/cli.s"

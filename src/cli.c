@@ -4,8 +4,6 @@
 static int8_t format_null(struct program_state *program_struct);
 static program_state_t main_program_state;
 
-char *sfo_home    = NULL;
-
 void handle_organize(struct program_state *program_struct) {
     printf("Enter the path to organize: ");
     fgets(program_struct->path_buff, USR_PATH_LEN, stdin); // get the path to organize
@@ -19,7 +17,7 @@ void handle_backup(struct program_state *program_struct) {
     fgets(program_struct->path_buff, USR_PATH_LEN, stdin);
     program_struct->path_buff[strlen(program_struct->path_buff) - 1]; // Removing th e\n from the user input (AGAIN!!!)
 
-    backup(program_struct->path_buff);
+    backup("/home/vscode/Pictures/");
 }
 
 void handle_status(struct program_state *program_struct) {
