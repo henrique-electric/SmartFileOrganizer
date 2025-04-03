@@ -23,12 +23,13 @@ static int8_t copy_file(const char *file_name ,const char *path, const file_info
     static uint8_t copy_tmp_buff[BYTES_PER_RW]; // buffer to hold the data from the original file
 
     // Sets the destiny path with the backup file with the same name as the orignial
-    strncpy(dst_path_buff, get_sfo_home(), DST_PATH_MAX_LEN);
-    strcat(dst_path_buff, "Backups/");
-    strcat(dst_path_buff, file_name);
+    strncpy(dst_path_buff, get_sfo_home(), DST_PATH_MAX_LEN); 
+    strcat(dst_path_buff, "Backups/");  // Add the Backup directory to the buffer
+    mkdir(dst_path_buff, 0777);         // Creates a directory for the backups
+    strcat(dst_path_buff, file_name);   // Adds the original file name to the path
 
-    FILE *dst_file = fopen(dst_path_buff, "ab"); // creates the backup file
-    if (dst_file == NULL) {
+    int dst_fd = open(dst_path_buff, O_RDWR);
+    if (dst_fd == -1) {
         printf("ERROR ON OPEN DST PATH %s\n", dst_path_buff);
         fclose(src_file); // closes the src file and aborts the program
         return ERROR_ON_COPY;
@@ -36,10 +37,10 @@ static int8_t copy_file(const char *file_name ,const char *path, const file_info
     
     // Reads the data from the original file to buffer and write to the backup file
     while (fread(copy_tmp_buff, sizeof(uint8_t), BYTES_PER_RW, src_file) > 0)
-        fwrite(copy_file, sizeof(uint8_t), BYTES_PER_RW, dst_file);
+        write(dst_fd, copy_tmp_buff, BYTES_PER_RW);
     
     fclose(src_file);
-    fclose(dst_file);
+    close(dst_fd);
 
     printf("Copied %s\n", file_name);
     return SUCCESS_ON_COPY;
