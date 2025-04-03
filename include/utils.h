@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define SFO_HOME_LEN 256
+#define SFO_HOME_LEN 512
 
 char *get_sfo_home(void);
 
