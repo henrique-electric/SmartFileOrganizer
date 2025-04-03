@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     
   } else {
     //printf("%s\n", get_sfo_home());
-    backup("/home/vscode/Pictures/");
+    terminal();
   }
 
   return 0;
