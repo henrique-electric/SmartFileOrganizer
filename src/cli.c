@@ -17,7 +17,7 @@ void handle_backup(struct program_state *program_struct) {
     fgets(program_struct->path_buff, USR_PATH_LEN, stdin);
     program_struct->path_buff[strlen(program_struct->path_buff) - 1]; // Removing th e\n from the user input (AGAIN!!!)
 
-    backup("/home/vscode/Pictures/");
+    backup(program_struct->path_buff);
 }
 
 void handle_status(struct program_state *program_struct) {
