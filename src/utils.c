@@ -1,13 +1,13 @@
 #include "../include/utils.h"
 
+static char sfo_path_tmp_buff[SFO_HOME_LEN];
 
 char *get_sfo_home(void) {
-    static char sfo_home[SFO_HOME_LEN];
-    strcpy(sfo_home, getenv("HOME")); // get the user home folder first
+    strcpy(sfo_path_tmp_buff, getenv("HOME")); // get the user home folder first
 
-    strcat(sfo_home, "/");    // add a "/" after the the end of the path
-    strcat(sfo_home, ".sfo/");
+    strcat(sfo_path_tmp_buff, "/");    // add a "/" after the the end of the path
+    strcat(sfo_path_tmp_buff, ".sfo/");
 
-    return sfo_home;
+    return sfo_path_tmp_buff;
 }
 
