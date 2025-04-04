@@ -4,6 +4,7 @@
 #include "../include/sound_files/get_sound_file_info.h"
 #include "../include/organize.h"
 #include "../include/cli.h"
+#include "../include/utils.h"
 
 file_info output;
 char program_path[256]; // where the user called the program
@@ -21,9 +22,8 @@ int main(int argc, char *argv[])
     strcat(home, "/");
     strcat(program_path, argv[1]);
     strcat(program_path, "/");
-    //To Do
-
-
+    
+  } else {
     terminal();
   }
 
