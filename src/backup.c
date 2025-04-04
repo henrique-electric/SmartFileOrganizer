@@ -16,7 +16,6 @@ static int8_t copy_file(const char *file_name ,const char *path, const file_info
     if (src_file == NULL) {
         puts("ERROR ON OPEN FILE");
         return ERROR_ON_COPY;
-
     }
 
     static char dst_path_buff[DST_PATH_MAX_LEN]; // Creates a buffer to hold the destiny path where the backup will be
@@ -40,7 +39,7 @@ static int8_t copy_file(const char *file_name ,const char *path, const file_info
         write(dst_fd, copy_tmp_buff, BYTES_PER_RW);
     
     fclose(src_file);
-    close(dst_fd);
+    fclose(dst_fd);
 
     printf("Copied %s\n", file_name);
     return SUCCESS_ON_COPY;

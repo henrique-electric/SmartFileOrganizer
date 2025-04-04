@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "../include/file_type_detector.h"
+#include "../include/sound_files/get_sound_file_info.h"
 #include "../include/organize.h"
 #include "../include/cli.h"
 #include "../include/utils.h"
@@ -14,6 +15,7 @@ int main(int argc, char *argv[])
 
   if (argc > 1)
   {
+
     char *home = getenv("HOME");
     getcwd(program_path, sizeof(program_path));
     strcat(program_path, "/");
@@ -22,7 +24,6 @@ int main(int argc, char *argv[])
     strcat(program_path, "/");
     
   } else {
-    //printf("%s\n", get_sfo_home());
     terminal();
   }
 

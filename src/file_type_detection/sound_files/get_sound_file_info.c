@@ -15,7 +15,9 @@ int get_file_sound_info(const char *file_path, SF_INFO *sf_info)
     fprintf(stdout, "\nSound file info: \n");
     fprintf(stdout, "Sample rate: %d\n", sf_info->samplerate);
     fprintf(stdout, "Channels: %d\n", sf_info->channels);
-    fprintf(stdout, "Format: %d\n", sf_info->format);
+    fprintf(stdout, "Format: 0x%0x\n", sf_info->format);
     fprintf(stdout, "Sections: %d\n", sf_info->sections);
     fprintf(stdout, "Seekable: %d\n", sf_info->seekable);
+
+    return 0;
 }
