@@ -25,6 +25,13 @@
 
 #define MSG_FAIL_CREATE_BACKUP "Failed to backup the files in the directory"
 
+#define MSG_FAIL_CREATE_ARCHIVE_STRUCT "Failed to create archive struct for the specified file"
+#define MSG_FAIL_SUPPORT_ARCHIVE_FILTERS "Failed to support archive filters for the specified file"
+#define MSG_SUPPORT_ARCHIVE_FORMATS "Failed to support archive formats for the specified file"
+#define MSG_FAIL_OPEN_ARCHIVE_FILE "Failed to open the specified archive file"
+
+#define MSG_FAIL_MEMORY_ALLOC "Memory allocation failed"
+
 /**
  * Error codes
  */
@@ -38,6 +45,7 @@
 #define FAIL_BYTES_READ 1011
 #define FAIL_OPEN_FILE 1012
 #define FAIL_FILE_INFO_DETAILS 1013
+#define FAIL_OPEN_DIRECTORY 1014
 
 #define FAIL_NO_EXTENSION 2011
 
@@ -45,3 +53,8 @@
 #define FAIL_NO_COPY 3002
 #define FAIL_CREATE_NEW_DIRECTORY 3003
 #define FAIL_CREATE_SYMBOLIC_LINK 3004 
+
+#define FAIL_CREATE_ARCHIVE_STRUCT 5001
+#define FAIL_SUPPORT_ARCHIVE_FILTERS 5002
+#define FAIL_SUPPORT_ARCHIVE_FORMATS 5003
+#define FAIL_OPEN_ARCHIVE_FILE 5004

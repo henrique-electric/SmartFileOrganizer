@@ -13,18 +13,17 @@
 #include "organize.h"
 #include "backup.h"
 
-// Defines
-#define  CMD_BACKUP "backup"
-#define  CMD_EXIT "exit"
-#define  CMD_ORGANIZE "organize"
-#define  CMD_STATUS "status"
 
-#define  USER_COMMAND_READ_ERROR  -1
-#define  USER_COMMAND_READ_SUCCESS 0
+#define CMD_BACKUP "backup"
+#define CMD_EXIT "exit"
+#define CMD_ORGANIZE "organize"
+#define CMD_STATUS "status"
 
-#define  USR_BUFF_CAP  35 // Just a start value, can be changed as needed
+#define USER_COMMAND_READ_ERROR -1
+#define USER_COMMAND_READ_SUCCESS 0
+
+#define  USR_BUFF_CAP  35
 #define  USR_PATH_LEN  256
-//
 
 
 // Using a struct to group variables and make easier to work
@@ -33,6 +32,7 @@ struct program_state {
     char    input_buff[USR_BUFF_CAP];   // holds the user input
     char    path_buff[USR_PATH_LEN];    // Holds the path that the user want to use the program
 };
+
 typedef struct program_state program_state_t;
 
 /*
@@ -44,7 +44,8 @@ typedef struct program_state program_state_t;
 typedef void (*command_handler_t)(struct program_state *);
 
 // This struct groups a user command with its corresponding handler function
-typedef struct {
+typedef struct
+{
     const char *command;
     command_handler_t handler;
 } command_dispatch_table_t;
@@ -59,7 +60,6 @@ void handle_exit(struct program_state *program_struct);
     This function is responsible to get the user input and handle it
 */
 int read_input(struct program_state *program_struct);
-
 
 // Function that starts a terminal to get the user command
 void terminal();
