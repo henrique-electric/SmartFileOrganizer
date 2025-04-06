@@ -13,4 +13,4 @@ typedef struct sfo_log_struct sfo_log;
 
 void write_log(sfo_log *log);
 
-#endif SFO_LOG_H
+#endif
