@@ -15,7 +15,7 @@ static sfo_log log_buff;
 static void log_organize(const file_info, const char *msg) {
     time(&log_buff.raw_log_time);
     size_t msg_len = strlen(msg);
-    log_buff.msg_buff = malloc(msg + 1);
+    log_buff.msg_buff = malloc(msg_len + 1);
 
     if (log_buff.msg_buff != NULL) {
         strcpy(log_buff.msg_buff, msg);
