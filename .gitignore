@@ -13,5 +13,6 @@ default.nix
 result
 Makefile
 TODO.md
-dockerfile
+Dockerfile
 example_files
+test_sounds
