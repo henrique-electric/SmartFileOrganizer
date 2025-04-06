@@ -13,3 +13,5 @@ default.nix
 result
 Makefile
 TODO.md
+dockerfile
+example_files
