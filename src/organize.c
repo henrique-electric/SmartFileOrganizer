@@ -12,19 +12,6 @@ char link_dst[LINK_MAX_LEN];
 
 static sfo_log log_buff;
 
-static void log_organize(const file_info, const char *msg) {
-    time(&log_buff.raw_log_time);
-    size_t msg_len = strlen(msg);
-    log_buff.msg_buff = malloc(msg_len + 1);
-
-    if (log_buff.msg_buff != NULL) {
-        strcpy(log_buff.msg_buff, msg);
-        write_log(&log_buff);
-        free(log_buff.msg_buff);
-        log_buff.msg_buff = NULL;
-    }
-}
-
 static void handle_link_path(const char *type, const char *name) {
     if (type == NULL)
         return;
