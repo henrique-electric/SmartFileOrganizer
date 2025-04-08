@@ -3,6 +3,7 @@
 #define DST_PATH_MAX_LEN 256
 
 char backup_path[DST_PATH_MAX_LEN];
+char log_msg_buff[256];
 
 /*
     A function implementation to copy the files. (Can be modified to become more optmized or be removed to use other one)
@@ -38,6 +39,10 @@ static int8_t copy_file(const char *file_name ,const char *path, const file_info
     // Reads the data from the original file to buffer and write to the backup file
     while (fread(copy_tmp_buff, sizeof(uint8_t), BYTES_PER_RW, src_file) > 0)
         fwrite(copy_tmp_buff, sizeof(char), BYTES_PER_RW, dst_fd);
+
+
+    sprintf(log_msg_buff, "Backed up %s\n", file_name);
+    write_log(log_msg_buff);
     
     fclose(src_file);
     fclose(dst_fd);
