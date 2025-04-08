@@ -4,6 +4,7 @@
 #include "file_type_detector.h"
 #include "errors.h"
 #include "utils.h"
+#include "log.h"
 #include <dirent.h>
 #include <fcntl.h>
 #include <stdlib.h>
