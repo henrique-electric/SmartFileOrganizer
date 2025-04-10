@@ -10,6 +10,7 @@
 #include <sys/stat.h>
 #include "file_type_detector.h"
 #include "errors.h"
+#include "log.h"
 
 #define FAIL_HANDLE_TYPE -1
 #define FAIL_ORGANIZE_FILES -1

@@ -3,6 +3,7 @@
 #define DST_PATH_MAX_LEN 256
 
 char backup_path[DST_PATH_MAX_LEN];
+char log_msg_buff[256];
 
 /*
     A function implementation to copy the files. (Can be modified to become more optmized or be removed to use other one)
@@ -27,8 +28,9 @@ static int8_t copy_file(const char *file_name ,const char *path, const file_info
     mkdir(dst_path_buff, 0777);         // Creates a directory for the backups
     strcat(dst_path_buff, file_name);   // Adds the original file name to the path
 
-    int dst_fd = open(dst_path_buff, O_RDWR);
-    if (dst_fd == -1) {
+    FILE *dst_fd = fopen(dst_path_buff, "wb");;
+    if (dst_fd == NULL) {
+        printf("%s\n", dst_path_buff);
         printf("ERROR ON OPEN DST PATH %s\n", dst_path_buff);
         fclose(src_file); // closes the src file and aborts the program
         return ERROR_ON_COPY;
@@ -36,12 +38,15 @@ static int8_t copy_file(const char *file_name ,const char *path, const file_info
     
     // Reads the data from the original file to buffer and write to the backup file
     while (fread(copy_tmp_buff, sizeof(uint8_t), BYTES_PER_RW, src_file) > 0)
-        write(dst_fd, copy_tmp_buff, BYTES_PER_RW);
+        fwrite(copy_tmp_buff, sizeof(char), BYTES_PER_RW, dst_fd);
+
+
+    sprintf(log_msg_buff, "Backed up %s\n", file_name);
+    write_log(log_msg_buff);
     
     fclose(src_file);
     fclose(dst_fd);
 
-    printf("Copied %s\n", file_name);
     return SUCCESS_ON_COPY;
 }
 
@@ -65,17 +70,15 @@ int8_t backup(const char *path) {
     char *tmp_path_buff = NULL; // pointer to the temporary buffer
 
     // Main part of the function, it will read the next file in the dir and create a copy of it
+    puts("Starting backup");
     while ((file_on_dir = readdir(directory)) != NULL) {
         if (strcmp(file_on_dir->d_name, ".") == 0 || strcmp(file_on_dir->d_name, "..") == 0) {
-            printf("%s is a directory\n", file_on_dir->d_name);
             continue;
         } else {
-            puts("Starting backup");
             tmp_path_buff = malloc(strlen(path) + strlen(file_on_dir->d_name) + 1); // Allocate a dynamic memory to hold the path + the file
             if (tmp_path_buff == NULL)
                 return ERROR_ON_BACKUP;
             
-            puts("1st process");
             strcpy(tmp_path_buff, path); // copies the path to the buffer
             strcat(tmp_path_buff, file_on_dir->d_name); // add the file name at the end of the path
             

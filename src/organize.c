@@ -10,6 +10,8 @@ char link_dst[LINK_MAX_LEN];
 
 #define SUCCESS_CREATED_LINKS 0
 
+static sfo_log log_buff;
+
 static void handle_link_path(const char *type, const char *name) {
     if (type == NULL)
         return;
