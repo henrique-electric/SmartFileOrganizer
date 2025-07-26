@@ -1,8 +1,6 @@
 #include "../include/organize.h"
 #define LINK_MAX_LEN 256
 
-const char *image_types[] = {"PNG", "JPEG", "JPG", "GIF", "BMP", "TIFF", "WEBP", "X-ICON"};
-
 char *user_home     = NULL;
 char *sfo_home      = NULL;
 char link_dst[LINK_MAX_LEN];
