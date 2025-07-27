@@ -21,6 +21,7 @@ add_executable(sfo
     src/log.c)
 
 target_link_libraries(sfo PRIVATE sndfile LibArchive::LibArchive magic)
+include_directories(./include)
 
 
 add_executable(test_sounds
