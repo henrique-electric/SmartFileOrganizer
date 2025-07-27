@@ -3,7 +3,8 @@
 #define DST_PATH_MAX_LEN 256
 
 char backup_path[DST_PATH_MAX_LEN];
-char log_msg_buff[256];
+char sfo_log_buff[SFO_HOME_LEN];
+
 
 /*
     A function implementation to copy the files. (Can be modified to become more optmized or be removed to use other one)
@@ -41,8 +42,8 @@ static int8_t copy_file(const char *file_name ,const char *path, const file_info
         fwrite(copy_tmp_buff, sizeof(char), BYTES_PER_RW, dst_fd);
 
 
-    sprintf(log_msg_buff, "Backed up %s\n", file_name);
-    write_log(log_msg_buff);
+    sprintf(sfo_log_buff, "Backed up %s\n", file_name);
+    write_log(sfo_log_buff);
     
     fclose(src_file);
     fclose(dst_fd);
@@ -72,7 +73,7 @@ int8_t backup(const char *path) {
     // Main part of the function, it will read the next file in the dir and create a copy of it
     puts("Starting backup");
     while ((file_on_dir = readdir(directory)) != NULL) {
-        if (strcmp(file_on_dir->d_name, ".") == 0 || strcmp(file_on_dir->d_name, "..") == 0) {
+        if (strcmp(file_on_dir->d_name, ".") == 0 || strcmp(file_on_dir->d_name, "..") == 0 || file_on_dir->d_type == DT_DIR) {
             continue;
         } else {
             tmp_path_buff = malloc(strlen(path) + strlen(file_on_dir->d_name) + 1); // Allocate a dynamic memory to hold the path + the file

@@ -8,6 +8,7 @@
 
 
 #define SFO_LOG_FILE_NAME "log.txt" // name for the log file (can be changed as needed)
+#define SFO_LOG_MSG_LEN 256
 
 typedef struct sfo_log_struct {
     time_t raw_log_time;
