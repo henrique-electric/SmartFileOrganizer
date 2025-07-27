@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../include/cli.h"
-#include "../include/file_type_detector.h"
-#include "../include/organize.h"
-#include "../include/sound_files/get_sound_file_info.h"
-#include "../include/utils.h"
+#include "cli.h"
+#include "file_type_detector.h"
+#include "organize.h"
+#include "sound_files/get_sound_file_info.h"
+#include "utils.h"
 
 file_info output;
 char program_path[256]; // where the user called the program
