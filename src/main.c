@@ -11,7 +11,6 @@
 file_info output;
 char program_path[256]; // where the user called the program
 char *file_path = NULL; // this variable is used to concat where the program was
-                        // called with the argv[1] (the File)
 
 struct argp_option arguments[] = {
     {"organize", 'o', "organize_path", 0, "Organize {path}", 0},
@@ -23,9 +22,28 @@ struct argument_state {
   bool use_backup;
 };
 
-static error_t parse_arguments(int key, char *arg, struct argp_state *state) {}
+static error_t parse_arguments(int key, char *arg, struct argp_state *state) {
+  switch (key) {
+    case 'b':
+      backup(arg);
+      break;
+
+    case 'o':
+      organize(arg);
+      break;
+
+    default:
+      return ARGP_ERR_UNKNOWN;
+  }
+
+  return 0;
+}
 
 int main(int argc, char *argv[]) {
+  struct argument_state arguments_struct;
+  struct argp argp_struct = {arguments, parse_arguments};
+  argp_parse(&argp_struct, argc, argv, 0, 0, &arguments);
+
   if (argc > 1) {
 
   } else {
