@@ -20,7 +20,7 @@ add_executable(sfo
     src/cli.c
     src/log.c)
 
-target_link_libraries(sfo PRIVATE SndFile::sndfile LibArchive::LibArchive magic)
+target_link_libraries(sfo PRIVATE sndfile LibArchive::LibArchive magic)
 
 
 add_executable(test_sounds
