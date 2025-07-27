@@ -73,7 +73,7 @@ int8_t backup(const char *path) {
     // Main part of the function, it will read the next file in the dir and create a copy of it
     puts("Starting backup");
     while ((file_on_dir = readdir(directory)) != NULL) {
-        if (strcmp(file_on_dir->d_name, ".") == 0 || strcmp(file_on_dir->d_name, "..") == 0) {
+        if (strcmp(file_on_dir->d_name, ".") == 0 || strcmp(file_on_dir->d_name, "..") == 0 || file_on_dir->d_type == DT_DIR) {
             continue;
         } else {
             tmp_path_buff = malloc(strlen(path) + strlen(file_on_dir->d_name) + 1); // Allocate a dynamic memory to hold the path + the file
