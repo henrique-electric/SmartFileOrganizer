@@ -32,9 +32,10 @@ message(STATUS "Sources found: ${SOURCES}")
 message(STATUS "Include directories found: ${INCLUDES}")
 
 #Main target
+include_directories(./include)
 
 add_executable(sfo ${SOURCES})
-target_link_libraries(sfo PRIVATE SndFile::sndfile LibArchive::LibArchive magic)
+target_link_libraries(sfo PRIVATE sndfile LibArchive::LibArchive magic)
 
 #Test sounds target
 #add_executable(test_sounds
