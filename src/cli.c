@@ -34,8 +34,8 @@ void handle_exit(struct program_state *program_struct) {
 const command_dispatch_table_t command_dispatch_table[] = {
     {handle_organize},
     {handle_backup},
-    {handle_status},
     {handle_exit},
+    {handle_status}, // TODO
 };
 
 /*
