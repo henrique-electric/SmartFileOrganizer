@@ -33,9 +33,11 @@ message(STATUS "Include directories found: ${INCLUDES}")
 
 include_directories(./include)
 
+add_library(user_input STATIC src/cpp/input.cpp)
+
 #Main target
 add_executable(sfo ${SOURCES})
-target_link_libraries(sfo PRIVATE sndfile LibArchive::LibArchive magic)
+target_link_libraries(sfo PRIVATE user_input sndfile LibArchive::LibArchive magic)
 
 #Test sounds target
 #add_executable(test_sounds
