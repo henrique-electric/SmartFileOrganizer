@@ -44,7 +44,7 @@ const command_dispatch_table_t command_dispatch_table[] = {
 /*
     Function to handle user input
 */
-int read_input(struct program_state *program_struct) {
+int handle_input(struct program_state *program_struct) {
     //To Do
     if (NULL == program_struct)
         return USER_COMMAND_READ_ERROR;
@@ -72,7 +72,7 @@ void terminal() {
     puts("[ 3 ] exit");
     printf("Enter an option: ");
 
-    while ((read_input(&main_program_state)) == USER_COMMAND_READ_ERROR)
+    while ((handle_input(&main_program_state)) == USER_COMMAND_READ_ERROR)
         printf("Ivalid command, try again: ");
     
 } 

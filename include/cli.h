@@ -59,7 +59,7 @@ void handle_exit(struct program_state *program_struct);
 /*
     This function is responsible to get the user input and handle it
 */
-int read_input(struct program_state *program_struct);
+int handle_input(struct program_state *program_struct);
 
 // Function that starts a terminal to get the user command
 void terminal();
