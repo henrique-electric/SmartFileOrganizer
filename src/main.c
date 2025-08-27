@@ -26,7 +26,6 @@ struct argument_state {
 static error_t parse_arguments(int key, char *arg, struct argp_state *state) {
   switch (key) {
     case 'b':
-      backup(arg);
       break;
 
     case 'o':

@@ -15,7 +15,6 @@ void handle_backup(struct program_state *program_struct) {
     printf("Enter the path to backup: ");
     fgets(program_struct->path_buff, USR_PATH_LEN, stdin);
     program_struct->path_buff[strlen(program_struct->path_buff) - 1] = 0x0; // Removing th e\n from the user input (AGAIN!!!)
-    backup(program_struct->path_buff);
 }
 
 void handle_status(struct program_state *program_struct) {
