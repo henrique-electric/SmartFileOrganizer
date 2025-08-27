@@ -7,11 +7,13 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdio.h>
 //
 
 // Module includes
 #include "organize.h"
 #include "backup.h"
+#include "utils.h"
 
 
 #define CMD_BACKUP "backup"
@@ -29,7 +31,7 @@
 // Using a struct to group variables and make easier to work
 struct program_state {
     bool    is_running;                 // stores the current state of the program
-    char    input_buff[USR_BUFF_CAP];   // holds the user input
+    int     user_input;  // holds the user input
     char    path_buff[USR_PATH_LEN];    // Holds the path that the user want to use the program
 };
 
@@ -46,7 +48,6 @@ typedef void (*command_handler_t)(struct program_state *);
 // This struct groups a user command with its corresponding handler function
 typedef struct
 {
-    const char *command;
     command_handler_t handler;
 } command_dispatch_table_t;
 
@@ -56,10 +57,13 @@ void handle_backup(struct program_state *program_struct);
 void handle_status(struct program_state *program_struct);
 void handle_exit(struct program_state *program_struct);
 
+extern int read_int(void);
+extern void flush_stdin(void);
+
 /*
     This function is responsible to get the user input and handle it
 */
-int read_input(struct program_state *program_struct);
+int handle_input(struct program_state *program_struct);
 
 // Function that starts a terminal to get the user command
 void terminal();

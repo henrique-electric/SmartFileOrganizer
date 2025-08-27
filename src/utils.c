@@ -1,4 +1,4 @@
-#include "../include/utils.h"
+#include "utils.h"
 
 static char sfo_path_tmp_buff[SFO_HOME_LEN];
 
@@ -11,3 +11,7 @@ char *get_sfo_home(void) {
     return sfo_path_tmp_buff;
 }
 
+void flush_std() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) ;
+}

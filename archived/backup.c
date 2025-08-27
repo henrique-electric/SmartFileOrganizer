@@ -38,9 +38,11 @@ static int8_t copy_file(const char *file_name ,const char *path, const file_info
     }
     
     // Reads the data from the original file to buffer and write to the backup file
-    while (fread(copy_tmp_buff, sizeof(uint8_t), BYTES_PER_RW, src_file) > 0)
-        fwrite(copy_tmp_buff, sizeof(char), BYTES_PER_RW, dst_fd);
 
+    size_t bytes_read = 0;
+    while ((bytes_read = fread(copy_tmp_buff, sizeof(uint8_t), BYTES_PER_RW, src_file)) > 0) {
+        fwrite(copy_tmp_buff, sizeof(uint8_t), bytes_read, dst_fd);
+    }
 
     sprintf(sfo_log_buff, "Backed up %s\n", file_name);
     write_log(sfo_log_buff);

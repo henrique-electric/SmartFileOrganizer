@@ -15,7 +15,8 @@ char *file_path = NULL; // this variable is used to concat where the program was
 struct argp_option arguments[] = {
     {"organize", 'o', "organize_path", 0, "Organize {path}", 0},
     {"backup", 'b', "backup_path", 0, "Backup {path}", 0},
-    {NULL}};
+    {NULL}
+};
 
 struct argument_state {
   bool use_organize;
@@ -25,7 +26,6 @@ struct argument_state {
 static error_t parse_arguments(int key, char *arg, struct argp_state *state) {
   switch (key) {
     case 'b':
-      backup(arg);
       break;
 
     case 'o':
