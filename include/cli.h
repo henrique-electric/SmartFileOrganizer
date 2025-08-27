@@ -15,12 +15,6 @@
 #include "backup.h"
 #include "utils.h"
 
-
-#define CMD_BACKUP "backup"
-#define CMD_EXIT "exit"
-#define CMD_ORGANIZE "organize"
-#define CMD_STATUS "status"
-
 #define USER_COMMAND_READ_ERROR -1
 #define USER_COMMAND_READ_SUCCESS 0
 
