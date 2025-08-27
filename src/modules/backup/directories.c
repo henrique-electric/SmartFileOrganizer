@@ -1,0 +1,105 @@
+#include "../../../include/modules/backup/directories.h"
+#include "../../../include/modules/backup/copy.h"
+
+#include "../../../include/errors.h"
+
+
+#include <stdio.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <string.h>
+#include <errno.h>
+#include <limits.h>
+#include <sys/stat.h>
+
+int cwd_all_files(const char *pathname)
+{
+
+	struct dirent *entries;
+	DIR *dir_name;
+
+	char cwd_buffer[PATH_MAX];
+
+	if(getcwd(cwd_buffer, PATH_MAX) != NULL)
+	{
+	
+		dir_name = opendir(cwd_buffer);
+
+		if(dir_name)
+		{
+			//ToDo: passing pathname and creating checks for valid pathname	
+			char backup_directory[strlen(cwd_buffer) + strlen(pathname) + strlen("/backup/") + 1];
+		
+			char *chosen_path;
+
+			strcpy(chosen_path, pathname);
+
+			strcpy(backup_directory, cwd_buffer);
+			
+			if(strcat(backup_directory, "/backup/") != NULL) // Default for now
+			{
+				fprintf(stdout, "directory: %s\n", backup_directory);
+						
+				if(mkdir(backup_directory, 0755) == 0)
+				{
+
+					fprintf(stdout, "Success on creating backup directory!\n");
+				}
+				else
+				{
+					fprintf(stderr, "Error on creating directory: (%s)\n", strerror(errno));
+					return FAIL_CREATE_NEW_DIRECTORY;
+				}
+			}
+
+			while((entries = readdir(dir_name)) != NULL)
+			{
+				if(strcmp(entries->d_name, "..") == 0 || strcmp(entries->d_name, ".") == 0)
+					continue;
+				
+				switch(entries->d_type)
+				{
+					case DT_REG:
+						{
+							//Simple duplicate name
+							char backup_dirname[strlen(entries->d_name) + strlen("backup/") + 1];
+
+							//ToDo: Creating names for the backup files?
+							strcpy(backup_dirname, "backup/");
+							if(strcat(backup_dirname, entries->d_name) != NULL)
+							{
+								
+								//Actual copy of the files
+								copy(backup_dirname, entries->d_name);
+
+							}
+							else
+							{
+								fprintf(stderr, "Error on creating duplicate name: (%s)\n", strerror(errno));
+								return FAIL_CREATE_DUPLICATE_NAME;
+							}
+
+						}
+						break;
+				}
+			}
+
+			fprintf(stdout, "Created duplicates!\n");
+		}
+		else
+		{
+			fprintf(stderr, "Error on opening directory stream!\n");
+			return FAIL_OPEN_DIRECTORY_STREAM;
+		}
+		
+
+	}
+	else
+	{
+		fprintf(stderr, "Could not get the current working directory: (%s)\n", strerror(errno));
+		return FAIL_NO_CWD;
+	}
+
+
+	return 0;
+}

@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "cli.h"
-#include "file_type_detector.h"
-#include "organize.h"
-#include "sound_files/get_sound_file_info.h"
-#include "utils.h"
+#include "../include/cli.h"
+#include "../include/file_type_detector.h"
+#include "../include/organize.h"
+#include "../include/sound_files/get_sound_file_info.h"
+#include "../include/utils.h"
 
 file_info output;
 char program_path[256]; // where the user called the program
@@ -52,7 +52,9 @@ int main(int argc, char *argv[]) {
     strcat(home, "/");
     strcat(program_path, argv[1]);
     strcat(program_path, "/");
-    
+	
+	fprintf(stdout, "%s\n", program_path);
+
   } else {
     terminal();
   }
