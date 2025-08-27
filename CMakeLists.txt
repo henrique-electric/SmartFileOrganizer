@@ -31,24 +31,10 @@ list(APPEND INCLUDES "${CMAKE_SOURCE_DIR}/include/")
 message(STATUS "Sources found: ${SOURCES}")
 message(STATUS "Include directories found: ${INCLUDES}")
 
-include_directories(./include)
+include_directories(${INCLUDES})
 
 add_library(cpp_utils STATIC src/cpp/utils.cpp)
 
 #Main target
 add_executable(sfo ${SOURCES})
 target_link_libraries(sfo PRIVATE cpp_utils sndfile LibArchive::LibArchive magic)
-
-#Test sounds target
-#add_executable(test_sounds
-#    tests/tests_get_sound_file_info.c
-#    src/file_type_detection/sound_files/get_sound_file_info.c)
-#target_link_libraries(test_sounds PRIVATE cunit SndFile::sndfile)
-
-#Test images target
-#add_executable(test_images
-#    tests/tests_get_image_files.c
-#    src/file_type_detection/file_type_detector.c
-#    src/file_type_detection/sound_files/get_sound_file_info.c
-#    src/file_type_detection/image_files/get_image_files.c)
-#target_link_libraries(test_images PRIVATE cunit magic SndFile::sndfile)
