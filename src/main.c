@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../include/cli.h"
-#include "../include/file_type_detector.h"
-#include "../include/organize.h"
-#include "../include/sound_files/get_sound_file_info.h"
-#include "../include/utils.h"
+#include "cli.h"
+#include "file_type_detector.h"
+#include "get_sound_file_info.h"
+#include "organize.h"
+#include "utils.h"
 
 file_info output;
 char program_path[256]; // where the user called the program
@@ -15,8 +15,7 @@ char *file_path = NULL; // this variable is used to concat where the program was
 struct argp_option arguments[] = {
     {"organize", 'o', "organize_path", 0, "Organize {path}", 0},
     {"backup", 'b', "backup_path", 0, "Backup {path}", 0},
-    {NULL}
-};
+    {NULL}};
 
 struct argument_state {
   bool use_organize;
@@ -25,15 +24,15 @@ struct argument_state {
 
 static error_t parse_arguments(int key, char *arg, struct argp_state *state) {
   switch (key) {
-    case 'b':
-      break;
+  case 'b':
+    break;
 
-    case 'o':
-      organize(arg);
-      break;
+  case 'o':
+    organize(arg);
+    break;
 
-    default:
-      return ARGP_ERR_UNKNOWN;
+  default:
+    return ARGP_ERR_UNKNOWN;
   }
 
   return 0;
@@ -52,8 +51,8 @@ int main(int argc, char *argv[]) {
     strcat(home, "/");
     strcat(program_path, argv[1]);
     strcat(program_path, "/");
-	
-	fprintf(stdout, "%s\n", program_path);
+
+    fprintf(stdout, "%s\n", program_path);
 
   } else {
     terminal();

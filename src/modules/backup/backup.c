@@ -1,7 +1,3 @@
-#include "../../../include/modules/backup/backup.h"
+#include "backup.h"
 
-int backup_create(const char *path)
-{
-	cwd_all_files(path);
-}
-
+int backup_create(const char *path) { cwd_all_files(path); }
