@@ -18,7 +18,4 @@
 #define IMAGE_TYPE_ARRAY_LEN 7
 #define MAX_FILE_PATH_LEN 256
 
-
-int organize(char *path);
-
 #endif
