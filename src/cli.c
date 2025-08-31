@@ -149,4 +149,3 @@ static int8_t format_null(sfo_state *state) {
     *char_index = 0x00; // set the addr to 0x00
     return 0;
 }
-

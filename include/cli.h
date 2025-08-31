@@ -25,13 +25,11 @@
 // Main structure for the state of the cli app
 typedef struct state
 {
-
-	int 	command_status; 				//command status tracker
+    	int 	  command_status; 				//command status tracker
     	bool    is_running;                 			// stores the current state of the program
 
     	char    user_input[USER_INPUT_BUFFER_LENGTH];   	// holds the user input
     	char    path[PATH_MAX];    				// Holds the path that the user want to use the program
-
 } sfo_state;
 
 /*
@@ -45,7 +43,6 @@ typedef void (*command_handler_t)(sfo_state *);
 // This struct groups a user command with its corresponding handler function
 typedef struct
 {
-    const char *command;
     command_handler_t handler;
 } command_dispatch_table_t;
 
@@ -54,6 +51,9 @@ void handle_organize(sfo_state *state);
 void handle_backup(sfo_state *state);
 void handle_status(sfo_state *state);
 void handle_exit(sfo_state *state);
+
+extern int read_int(void);
+extern void flush_stdin(void);
 
 /*
     This function is responsible to get the user input and handle it

@@ -35,5 +35,4 @@ include_directories(./include)
 
 #Main target
 add_executable(sfo ${SOURCES})
-target_link_libraries(sfo PRIVATE SndFile::sndfile LibArchive::LibArchive magic)
-
+target_link_libraries(sfo PRIVATE cpp_utils sndfile LibArchive::LibArchive magic)
