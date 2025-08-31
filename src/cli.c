@@ -1,9 +1,9 @@
 
-#include "../include/modules/backup/backup.h"
-#include "../include/modules/organize/organize.h"
-#include "../include/modules/file_status/file_status.h"
+#include "modules/backup/backup.h"
+#include "modules/organize/organize.h"
+#include "modules/file_status/file_status.h"
 
-#include "../include/cli.h"
+#include "cli.h"
 
 static int8_t format_null(sfo_state *state);
 static sfo_state main_state;

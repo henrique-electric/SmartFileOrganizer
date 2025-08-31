@@ -31,6 +31,8 @@ list(APPEND INCLUDES "${CMAKE_SOURCE_DIR}/include/")
 message(STATUS "Sources found: ${SOURCES}")
 message(STATUS "Include directories found: ${INCLUDES}")
 
+include_directories(./include)
+
 #Main target
 add_executable(sfo ${SOURCES})
 target_link_libraries(sfo PRIVATE SndFile::sndfile LibArchive::LibArchive magic)
