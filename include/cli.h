@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <linux/limits.h>
+#include <argp.h>
 
 #define CMD_BACKUP "backup"
 #define CMD_EXIT "exit"
@@ -22,10 +23,23 @@
 #define PATH_MAX 4096
 #endif
 
+// Argp stuff
+
+#define ARGP_ORGANIZE 'o'
+#define ARGP_BACKUP 'b'
+
+extern struct argp_option sfo_cli_options[];
+
+int cli_parser(int key, char *arg, struct argp_state *state);
+int call_parser(int argc, char **argv);
+
+// End of argp stuff
+
+
 // Main structure for the state of the cli app
 typedef struct state
 {
-    	int 	  command_status; 				//command status tracker
+    	int 	command_status; 				//command status tracker
     	bool    is_running;                 			// stores the current state of the program
 
     	char    user_input[USER_INPUT_BUFFER_LENGTH];   	// holds the user input

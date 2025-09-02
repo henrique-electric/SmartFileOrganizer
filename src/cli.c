@@ -8,6 +8,37 @@
 static int8_t format_null(sfo_state *state);
 static sfo_state main_state;
 
+// Argp stuff
+
+struct argp_option sfo_cli_options[] = {
+    {"organize", ARGP_ORGANIZE, 0, 0, "Organizes the current directory"},
+    {"backup", ARGP_BACKUP, 0, 0, "Backs up the current directory"},
+    {NULL}
+};
+
+int cli_parser(int key, char *arg, struct argp_state *state) {
+	switch (key)
+	{
+	case ARGP_ORGANIZE:
+		// TODO
+		break;
+	case ARGP_BACKUP:
+		// TODO
+		break;
+
+	default:
+		return ARGP_ERR_UNKNOWN;
+	}
+	return 0;
+}
+
+int call_parser(int argc, char **argv) {
+	struct argp argp = {sfo_cli_options, cli_parser};
+	return argp_parse(&argp, argc, argv, 0, 0, 0);
+}
+
+// End of argp stuff
+
 void handle_organize(sfo_state *state)
 {
 	organize(state);
