@@ -2,6 +2,7 @@
 #include "modules/backup/backup.h"
 #include "modules/organize/organize.h"
 #include "modules/file_status/file_status.h"
+#include "modules/organize/sorters/default.h"
 
 #include "cli.h"
 
@@ -11,16 +12,18 @@ static sfo_state main_state;
 // Argp stuff
 
 struct argp_option sfo_cli_options[] = {
-    {"organize", ARGP_ORGANIZE, 0, 0, "Organizes the current directory"},
+    {"organize", ARGP_ORGANIZE, "MODE", 0, "Organizes the current directory"},
     {"backup", ARGP_BACKUP, 0, 0, "Backs up the current directory"},
     {NULL}
 };
 
 int cli_parser(int key, char *arg, struct argp_state *state) {
+
 	switch (key)
 	{
 	case ARGP_ORGANIZE:
-		// TODO
+		if(strcmp(arg, "default") == 0 || *arg == 'd')
+            default_sorter("/default");
 		break;
 	case ARGP_BACKUP:
 		// TODO
