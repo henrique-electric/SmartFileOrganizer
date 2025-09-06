@@ -17,3 +17,5 @@ Dockerfile
 example_files
 test_sounds
 .nvim
+.cache
+compile_commands.json
