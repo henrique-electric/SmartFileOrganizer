@@ -19,3 +19,4 @@ test_sounds
 .nvim
 .cache
 compile_commands.json
+nvim
