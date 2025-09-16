@@ -1,6 +1,6 @@
 FROM archlinux:latest
 
-RUN pacman -Syyu --noconfirm && pacman -S sudo libarchive cmake base-devel libsndfile zsh git --noconfirm
+RUN pacman -Syyu --noconfirm && pacman -S sudo libarchive cmake base-devel libsndfile zsh git unzip --noconfirm
 
 RUN echo "dev ALL = (ALL:ALL) ALL" > /etc/sudoers
 
